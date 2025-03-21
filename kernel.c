@@ -22,16 +22,16 @@ void clear_screen(void)
     }
 }
 
-void print_string(char *str, unsigned char color)
-{
+void print_string(char *str, unsigned char color) {
     int index = 0;
+
     while (str[index]) {
-            terminal_buffer[vga_index] = (unsigned
-             ↪short)str[index]|(unsigned short)color << 8;
-            index++;
-            vga_index++;
+        terminal_buffer[vga_index] = (unsigned short)str[index] | ((unsigned short)color << 8);
+        index++;
+        vga_index++;
     }
 }
+
 
 void main(void)
 {
