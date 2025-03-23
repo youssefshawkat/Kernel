@@ -10,17 +10,20 @@ BOOT_PATH := $(ISO_PATH)/boot
 GRUB_PATH := $(BOOT_PATH)/grub
 
 .PHONY: all
-all: bootloader kernel linker iso
+all: bootloader source keyboard  kernel linker iso 
 	@echo Make has completed.
 
 bootloader: boot.asm
 	nasm -f elf32 boot.asm -o boot.o
-
+source: source.c
+	gcc -m32 -c source.c -o source.o
+keyboard: keyboard.c
+	gcc -m32 -c keyboard.c -o keyboard.o
 kernel: kernel.c
 	gcc -m32 -c kernel.c -o kernel.o
-
+	
 linker: linker.ld boot.o kernel.o
-	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o
+	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o keyboard.o source.o
 
 iso: kernel
 	$(MKDIR) $(GRUB_PATH)
@@ -31,5 +34,5 @@ iso: kernel
 
 .PHONY: clean
 clean:
-		(RM) *.o $(BIN) *iso
+		$(RM) *.o $(BIN) my-kernel.iso
 

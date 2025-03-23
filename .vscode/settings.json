@@ -1,0 +1,10 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "uio.h": "c",
+        "keyboard.h": "c",
+        "io.h": "c",
+        "source.h": "c",
+        "calculator.h": "c"
+    }
+}
